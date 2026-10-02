@@ -75,7 +75,7 @@ export function taskWithDetails(id: number) {
     WHERE d.task_id = ?
   `).all(id);
   const runs = db.prepare("SELECT * FROM runs WHERE task_id = ? ORDER BY id DESC").all(id);
-  return { ...task as object, events, dependencies, runs };
+  return { ...(task as Record<string, unknown>), events, dependencies, runs };
 }
 
 export function logEvent(taskId: number | null, type: string, actor: string, payload: unknown = {}) {
